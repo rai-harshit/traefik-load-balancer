@@ -1,0 +1,35 @@
+http:
+  services:
+    wrr:
+      weighted:
+        services:
+          - name: backend-1
+            weight: 4
+          - name: backend-2
+            weight: 1
+    backend-1:
+      loadBalancer:
+        servers:
+          - url: "http://localhost:5001"
+          - url: "http://localhost:5002"
+        healthCheck:
+          scheme: http
+          interval: 2s
+          timeout: 1s
+          path: /
+
+    backend-2:
+      loadBalancer:
+        servers:
+          - url: "http://localhost:5003"
+        healthCheck:
+          scheme: http
+          interval: 2s
+          timeout: 1s
+          path: /
+
+
+  routers:
+    my-router:
+      rule: "Path(`/`)"
+      service: "wrr"
