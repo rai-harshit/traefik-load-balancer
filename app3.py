@@ -1,4 +1,6 @@
 from flask import Flask
+import time
+from random import randint
 
 # Create the Flask app
 app = Flask(__name__)
@@ -6,6 +8,8 @@ app = Flask(__name__)
 # Define a route for the home page
 @app.route('/')
 def hello_world():
+    time.sleep(7)
+    print("Waiting 7 seconds")
     return 'Hello, World 3!'
 
 # Run the app if this file is executed
